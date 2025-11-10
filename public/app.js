@@ -1,39 +1,37 @@
-const formfield = document.getElementById('urlForm');
-const anchortext = document.getElementById('anchorForLink')
+const formfield = document.getElementById("urlForm");
+const anchortext = document.getElementById("anchorForLink");
+const origin = window.location.origin;
 
-formfield.addEventListener("submit", handleSubmit)
+formfield.addEventListener("submit", handleSubmit);
 
-async function handleSubmit(event){
-    
-    event.preventDefault();
-    let returnedObj;
-    let fullUrl = event.target.elements.enteredUrl.value
-    
-    try{
-            returnedObj = await fetch('https://link-io-nine.vercel.app/sendFullUrl',{
-            method : "POST",
-            headers : {
-                "Content-Type": "application/json",
-            },
-            body : JSON.stringify({
-                "fullUrl" : fullUrl
-            })
-          
-        })
-        if(!returnedObj.ok){
-            const data = await returnedObj.json();
-            alert(`Error :` + data.error)
-            event.target.elements.enteredUrl.value = ""
-            return;
-        }
+async function handleSubmit(event) {
+  event.preventDefault();
+  let returnedObj;
+  let fullUrl = event.target.elements.enteredUrl.value;
+
+  try {
+    returnedObj = await fetch(`${origin}/sendfullurl`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullUrl: fullUrl,
+      }),
+    });
+    if (!returnedObj.ok) {
+      const data = await returnedObj.json();
+      alert(`Error :` + data.error);
+      event.target.elements.enteredUrl.value = "";
+      return;
     }
-    catch(err){
-        alert(`Some error occured : ` + err);
-        event.target.elements.enteredUrl.value = ""
-        return;
-    }
-    const data = await returnedObj.json();
-    const showLink = `https://link-io-nine.vercel.app/` + data.id;
-    anchortext.innerHTML = showLink;
-    anchortext.href = showLink
+  } catch (err) {
+    alert(`Some error occured : ` + err);
+    event.target.elements.enteredUrl.value = "";
+    return;
+  }
+  const data = await returnedObj.json();
+  const showLink = `${origin}/` + data.id;
+  anchortext.innerHTML = showLink;
+  anchortext.href = showLink;
 }
