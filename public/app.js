@@ -10,7 +10,7 @@ async function handleSubmit(event){
     let fullUrl = event.target.elements.enteredUrl.value
     
     try{
-            returnedObj = await fetch('https://linkio-sable.vercel.app/api/sendFullUrl',{
+            returnedObj = await fetch('https://link-io-nine.vercel.app/sendFullUrl',{
             method : "POST",
             headers : {
                 "Content-Type": "application/json",
@@ -33,7 +33,7 @@ async function handleSubmit(event){
         return;
     }
     const data = await returnedObj.json();
-    const showLink = `https://linkio-sable.vercel.app/api` + data.id;
+    const showLink = `https://link-io-nine.vercel.app/` + data.id;
     anchortext.innerHTML = showLink;
     anchortext.href = showLink
 }
