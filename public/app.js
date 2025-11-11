@@ -35,3 +35,10 @@ async function handleSubmit(event) {
   anchortext.innerHTML = showLink;
   anchortext.href = showLink;
 }
+
+function copyText(){
+    if(anchortext.innerHTML === "Copied!!!") return;
+    navigator.clipboard.writeText(anchortext.innerText).then(() => {
+        anchortext.innerHTML = "Copied!!!"
+    })
+}
