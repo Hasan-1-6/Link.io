@@ -1,14 +1,13 @@
-import mongoose, { connect } from 'mongoose';
+import mongoose from "mongoose";
 
-async function connectDB(){
-    try {
-        await mongoose.connect(process.env.MONGODB_URI)
-        console.log(`MongoDB connection established`)
-
-    } catch (error) {
-        console.error(`Failed to connect to DB : ${error}`)   
-        throw error
-    }
+async function connectDB(env) {
+  try {
+    await mongoose.connect(env);
+    console.log(`MongoDB connection established`);
+  } catch (error) {
+    console.error(`Failed to connect to DB : ${error}`);
+    throw error;
+  }
 }
 
-export default connectDB
+export default connectDB;
